@@ -1,0 +1,109 @@
+jamesdanielmarrsritchey: ```function decimalToString(decimalRepresentation, delimiter = " ") {
+    let str = '';
+    let decimalValues = decimalRepresentation.split(delimiter);
+    for (let i = 0; i < decimalValues.length; i++) {
+        str += String.fromCharCode(parseInt(decimalValues[i]));
+    }
+    return str;
+}
+
+GitHub Copilot: This JavaScript function, `decimalToString`, takes two arguments: `decimalRepresentation` and `delimiter`. The `delimiter` argument is optional and defaults to a space (" ").
+
+The function works as follows:
+
+1. It initializes an empty string `str`.
+2. It splits the `decimalRepresentation` string into an array of substrings, `decimalValues`, using the `delimiter`.
+3. It then iterates over each element in the `decimalValues` array.
+4. For each element, it converts the decimal value to an integer using `parseInt()`, then converts this integer to a character using `String.fromCharCode()`, and appends this character to `str`.
+5. Finally, it returns the string `str`.
+
+In essence, this function converts a string of decimal ASCII values (separated by a specified delimiter) into a string of corresponding characters.
+
+jamesdanielmarrsritchey: Instead of converting from Decimal, convert from Binary.
+
+GitHub Copilot: Sure, to convert from binary instead of decimal, you would need to change the `parseInt(decimalValues[i])` to `parseInt(decimalValues[i], 2)`. The second argument to `parseInt` is the radix, which specifies the base in mathematical numeral systems. For binary, this is 2.
+
+Here's the updated function:
+
+```javascript
+function binaryToString(binaryRepresentation, delimiter = " ") {
+    let str = '';
+    let binaryValues = binaryRepresentation.split(delimiter);
+    for (let i = 0; i < binaryValues.length; i++) {
+        str += String.fromCharCode(parseInt(binaryValues[i], 2));
+    }
+    return str;
+}
+```
+
+This function now converts a string of binary ASCII values (separated by a specified delimiter) into a string of corresponding characters.
+
+jamesdanielmarrsritchey: The default delimiter should be nothing. In binary, every byte is 8 characters long.
+
+GitHub Copilot: Sure, you can change the default delimiter to an empty string ("") so that the function treats every 8 characters as a separate binary number. Here's the updated function:
+
+```javascript
+function binaryToString(binaryRepresentation, delimiter = "") {
+    let str = '';
+    let binaryValues = binaryRepresentation.match(/.{1,8}/g); // split every 8 characters
+    for (let i = 0; i < binaryValues.length; i++) {
+        str += String.fromCharCode(parseInt(binaryValues[i], 2));
+    }
+    return str;
+}
+```
+
+In this version of the function, I've used the `match` method with a regular expression to split the `binaryRepresentation` into chunks of 8 characters each. This is because a binary byte is 8 bits long. The function then proceeds as before, converting each binary number into a character and appending it to the string.
+
+jamesdanielmarrsritchey: Keep in mind, if there is a delimiter, then the delimiter needs to be used to determine the values for each byte.
+
+GitHub Copilot: Understood. If a delimiter is provided, it should be used to split the binary representation into separate bytes. If no delimiter is provided, we should assume that each byte is 8 characters long. Here's how you can modify the function to handle both cases:
+
+```javascript
+function binaryToString(binaryRepresentation, delimiter = "") {
+    let str = '';
+    let binaryValues;
+
+    if (delimiter) {
+        binaryValues = binaryRepresentation.split(delimiter);
+    } else {
+        binaryValues = binaryRepresentation.match(/.{1,8}/g); // split every 8 characters
+    }
+
+    for (let i = 0; i < binaryValues.length; i++) {
+        str += String.fromCharCode(parseInt(binaryValues[i], 2));
+    }
+    return str;
+}
+```
+
+In this version of the function, if a delimiter is provided, it's used to split the binary representation into separate bytes. If no delimiter is provided, the function assumes that each byte is 8 characters long and splits the binary representation accordingly.
+
+jamesdanielmarrsritchey: If the delimiter is "\n" treat it as a line ending. If the delimiter is "\t" treat it as a tab.
+
+GitHub Copilot: To handle "\n" and "\t" as delimiters, you can use the `split` method directly. However, since these are escape sequences, you need to ensure they are interpreted correctly. Here's how you can modify the function to handle these cases:
+
+```javascript
+function binaryToString(binaryRepresentation, delimiter = "") {
+    let str = '';
+    let binaryValues;
+
+    if (delimiter) {
+        if (delimiter === "\\n") {
+            delimiter = "\n";
+        } else if (delimiter === "\\t") {
+            delimiter = "\t";
+        }
+        binaryValues = binaryRepresentation.split(delimiter);
+    } else {
+        binaryValues = binaryRepresentation.match(/.{1,8}/g); // split every 8 characters
+    }
+
+    for (let i = 0; i < binaryValues.length; i++) {
+        str += String.fromCharCode(parseInt(binaryValues[i], 2));
+    }
+    return str;
+}
+```
+
+In this version of the function, if the delimiter is "\\n" or "\\t", it's converted to "\n" or "\t" respectively before being used to split the binary representation. This ensures that line endings and tabs are correctly interpreted as delimiters.

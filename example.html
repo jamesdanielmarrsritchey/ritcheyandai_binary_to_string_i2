@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example</title>
+</head>
+<body>
+<div id='output'>
+01010100
+01101000
+01101001
+01110011
+00100000
+01101001
+01110011
+00100000
+01100001
+01101110
+00100000
+01100101
+01111000
+01100001
+01101101
+01110000
+01101100
+01100101
+00101110
+</div>
+<script src="function.js"></script>
+<script>
+document.querySelector("#output").addEventListener("click", function() {
+    const element = document.querySelector("#output");
+    if (element) {
+        const binaryRepresentation = binaryToString(element.innerHTML, "\\n");
+        element.innerHTML = binaryRepresentation;
+    }
+});
+</script>
+</body>
+</html>
